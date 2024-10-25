@@ -7,12 +7,13 @@ class LogRegForm extends ConsumerStatefulWidget {
   final String title;
   final String button_label;
   final String swipe_label;
-
+  final Function(String, String) fun;
   const LogRegForm(
       {super.key,
       this.title = "Iniciar sesión",
       this.button_label = "Inciar sesión",
-      required this.swipe_label});
+      required this.swipe_label,
+      required this.fun});
 
   @override
   ConsumerState<LogRegForm> createState() => _LogRegFormState();
@@ -24,9 +25,10 @@ class _LogRegFormState extends ConsumerState<LogRegForm> {
 
   @override
   Widget build(BuildContext context) {
-    ref.listen<AuthState>(authControllerProvider, ((previous, state){
-      if (state is AuthStateError){
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(state.error)));
+    ref.listen<AuthState>(authControllerProvider, ((previous, state) {
+      if (state is AuthStateError) {
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text(state.error)));
       }
     }));
     return Card(
@@ -58,9 +60,9 @@ class _LogRegFormState extends ConsumerState<LogRegForm> {
             height: 20,
           ),
           FilledButton(
-            onPressed: () => ref
-                .read(authControllerProvider.notifier)
-                .login(emailController.text, passwordController.text),
+            onPressed: ()=>{
+              widget.fun(emailController.text, passwordController.text)
+            },
             style: ElevatedButton.styleFrom(
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10),

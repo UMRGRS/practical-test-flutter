@@ -4,8 +4,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 class PokeCard extends StatelessWidget {
   final String poke_number;
   final String pokemon;
+  final String pokeURL;
 
-  const PokeCard({super.key, required this.poke_number, required this.pokemon});
+  const PokeCard({super.key, required this.poke_number, required this.pokemon, required this.pokeURL});
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +30,10 @@ class PokeCard extends StatelessWidget {
               ),
             ),
             IconButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => PokeDetail(pokeURL: pokeURL, number: poke_number)));
+              },
               icon: SvgPicture.asset(
                 "assets/icons/pokeball-pokemon-svgrepo-com.svg",
                 height: 25,

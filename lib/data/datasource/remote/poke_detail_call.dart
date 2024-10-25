@@ -2,13 +2,12 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 
-
-Future<Map<String, dynamic>> getPokeInfo() async{
+Future<Map<String, dynamic>> getPokeInfo(String pokeURL) async{
   http.Client client = http.Client();
   http.Response data;
   Map<String, dynamic> pokeData = {};
 
-  Uri url = Uri.parse('https://pokeapi.co/api/v2/pokemon/1/');
+  Uri url = Uri.parse(pokeURL);
 
   try{
     data = await client.get(url);

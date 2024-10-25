@@ -5,6 +5,8 @@ class AuthRepository{
 
   Stream<User?> get authStateChange => _auth.idTokenChanges();
 
+  User? get user => _auth.currentUser;
+
   AuthRepository(this._auth);
 
   Future<User?> signInWithEmailAndPassword(
@@ -42,8 +44,8 @@ class AuthRepository{
     }
   }
 
-  Future<void> signOut() async {
-    return _auth.signOut();
+  Future<void> logout() async {
+    await  _auth.signOut();
   }
 }
 

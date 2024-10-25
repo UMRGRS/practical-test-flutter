@@ -26,7 +26,7 @@ class _PokeDetailState extends State<PokeDetail> {
   }
 
   getPokeData() async {
-    pokeData = await getPokeInfo();
+    pokeData = await getPokeInfo(widget.pokeURL);
     if (pokeData.isNotEmpty) {
       _visibility = true;
     } else {

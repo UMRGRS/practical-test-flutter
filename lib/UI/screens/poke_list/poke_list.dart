@@ -35,6 +35,14 @@ class _PokeListState extends State<PokeList> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Lista de pokemon :3"),
+        actions: [
+          ElevatedButton(
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const Profile()));
+              },
+              child: const Text("Perfil"))
+        ],
         elevation: 2,
       ),
       body: Padding(
@@ -56,7 +64,9 @@ class _PokeListState extends State<PokeList> {
                 }
                 return PokeCard(
                   poke_number: "$prefix${index + 1}",
-                  pokemon: toBeginningOfSentenceCase(pokes[index]["name"].toString()),
+                  pokemon: toBeginningOfSentenceCase(
+                      pokes[index]["name"].toString()),
+                  pokeURL: pokes[index]["url"],
                 );
               },
             ),

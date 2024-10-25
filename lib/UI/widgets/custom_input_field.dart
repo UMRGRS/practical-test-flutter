@@ -6,7 +6,6 @@ class CustomInputField extends StatefulWidget {
   final String label;
   final TextInputType? inputType;
   final bool isPassword;
-  final String? Function(String?)? validator;
   final TextEditingController controller;
   final int? maxLength;
   final AutovalidateMode mode;
@@ -16,9 +15,9 @@ class CustomInputField extends StatefulWidget {
     required this.label,
     this.inputType,
     this.isPassword = false,
-    this.validator,
     this.maxLength,
-    this.mode = AutovalidateMode.onUserInteraction, required this.controller,
+    this.mode = AutovalidateMode.onUserInteraction,
+    required this.controller,
   });
 
   @override
@@ -36,49 +35,37 @@ class _CustomInputFieldState extends State<CustomInputField> {
 
   @override
   Widget build(BuildContext context) {
-    return FormField<String>(
-        validator: widget.validator,
-        autovalidateMode: widget.mode,
-        builder: (state) {
-          return Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              TextField(
-                keyboardType: widget.inputType,
-                obscureText: _obscureText,
-                inputFormatters: [
-                  LengthLimitingTextInputFormatter(widget.maxLength),
-                ],
-                controller: widget.controller,
-                decoration: InputDecoration(
-                  labelText: widget.label,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  suffixIcon: widget.isPassword
-                      ? CupertinoButton(
-                          child: Icon(
-                            _obscureText
-                                ? Icons.visibility
-                                : Icons.visibility_off,
-                            size: 18,
-                          ),
-                          onPressed: () {
-                            _obscureText = !_obscureText;
-                            setState(() {});
-                          },
-                        )
-                      : null,
-                ),
-              ),
-              if (state.hasError)
-                Text(
-                  state.errorText!,
-                  style: const TextStyle(color: Colors.redAccent),
-                ),
-            ],
-          );
-        });
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        TextField(
+          keyboardType: widget.inputType,
+          obscureText: _obscureText,
+          inputFormatters: [
+            LengthLimitingTextInputFormatter(widget.maxLength),
+          ],
+          controller: widget.controller,
+          decoration: InputDecoration(
+            labelText: widget.label,
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+            suffixIcon: widget.isPassword
+                ? CupertinoButton(
+                    child: Icon(
+                      _obscureText ? Icons.visibility : Icons.visibility_off,
+                      size: 18,
+                    ),
+                    onPressed: () {
+                      _obscureText = !_obscureText;
+                      setState(() {});
+                    },
+                  )
+                : null,
+          ),
+        ),
+      ],
+    );
   }
 }
