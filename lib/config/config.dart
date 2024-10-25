@@ -11,7 +11,3 @@ export 'package:practical_testflutter/UI/screens/screens.dart';
 
 import 'package:practical_testflutter/UI/widgets/widgets.dart';
 export 'package:practical_testflutter/UI/widgets/widgets.dart';
-
-class Config{
-
-}

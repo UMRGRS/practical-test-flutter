@@ -16,7 +16,7 @@ class PokeDetail extends StatefulWidget {
 
 class _PokeDetailState extends State<PokeDetail> {
   Map<String, dynamic> pokeData = {};
-  bool _visibility = false;
+  bool visibility = false;
   Widget replacement = const CircularProgressIndicator();
 
   @override
@@ -28,7 +28,7 @@ class _PokeDetailState extends State<PokeDetail> {
   getPokeData() async {
     pokeData = await getPokeInfo(widget.pokeURL);
     if (pokeData.isNotEmpty) {
-      _visibility = true;
+      visibility = true;
     } else {
       replacement = const Text("Ocurrio un error, intentalo mas tarde");
     }
@@ -43,7 +43,7 @@ class _PokeDetailState extends State<PokeDetail> {
         elevation: 2,
       ),
       body: Visibility(
-        visible: _visibility,
+        visible: visibility,
         replacement: Center(child: replacement),
         child: Builder(builder: (context) {
           return SingleChildScrollView(

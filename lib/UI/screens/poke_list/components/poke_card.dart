@@ -2,11 +2,11 @@ import 'package:practical_testflutter/config/config.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class PokeCard extends StatelessWidget {
-  final String poke_number;
+  final String pokeNumber;
   final String pokemon;
   final String pokeURL;
 
-  const PokeCard({super.key, required this.poke_number, required this.pokemon, required this.pokeURL});
+  const PokeCard({super.key, required this.pokeNumber, required this.pokemon, required this.pokeURL});
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,7 @@ class PokeCard extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              "$poke_number - $pokemon",
+              "$pokeNumber - $pokemon",
               style: const TextStyle(
                 fontSize: 25,
                 color: Colors.white,
@@ -32,7 +32,7 @@ class PokeCard extends StatelessWidget {
             IconButton(
               onPressed: () {
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => PokeDetail(pokeURL: pokeURL, number: poke_number)));
+                    MaterialPageRoute(builder: (context) => PokeDetail(pokeURL: pokeURL, number: pokeNumber)));
               },
               icon: SvgPicture.asset(
                 "assets/icons/pokeball-pokemon-svgrepo-com.svg",

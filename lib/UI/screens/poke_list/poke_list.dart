@@ -12,7 +12,7 @@ class PokeList extends StatefulWidget {
 
 class _PokeListState extends State<PokeList> {
   List<dynamic> pokes = [];
-  bool _visibility = false;
+  bool visibility = false;
   Widget replacement = const CircularProgressIndicator();
   @override
   void initState() {
@@ -23,7 +23,7 @@ class _PokeListState extends State<PokeList> {
   getPokes() async {
     pokes = await getPokeList();
     if (pokes.isNotEmpty) {
-      _visibility = true;
+      visibility = true;
     } else {
       replacement = const Text("Ocurrio un error, intentalo mas tarde");
     }
@@ -48,7 +48,7 @@ class _PokeListState extends State<PokeList> {
       body: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Visibility(
-            visible: _visibility,
+            visible: visibility,
             replacement: Center(child: replacement),
             child: ListView.builder(
               itemCount: pokes.length,
@@ -63,7 +63,7 @@ class _PokeListState extends State<PokeList> {
                   prefix = "";
                 }
                 return PokeCard(
-                  poke_number: "$prefix${index + 1}",
+                  pokeNumber: "$prefix${index + 1}",
                   pokemon: toBeginningOfSentenceCase(
                       pokes[index]["name"].toString()),
                   pokeURL: pokes[index]["url"],
