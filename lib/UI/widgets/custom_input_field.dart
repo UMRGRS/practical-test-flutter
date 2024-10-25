@@ -7,6 +7,7 @@ class CustomInputField extends StatefulWidget {
   final TextInputType? inputType;
   final bool isPassword;
   final String? Function(String?)? validator;
+  final TextEditingController controller;
   final int? maxLength;
   final AutovalidateMode mode;
   const CustomInputField({
@@ -17,7 +18,7 @@ class CustomInputField extends StatefulWidget {
     this.isPassword = false,
     this.validator,
     this.maxLength,
-    this.mode = AutovalidateMode.onUserInteraction,
+    this.mode = AutovalidateMode.onUserInteraction, required this.controller,
   });
 
   @override
@@ -49,15 +50,7 @@ class _CustomInputFieldState extends State<CustomInputField> {
                 inputFormatters: [
                   LengthLimitingTextInputFormatter(widget.maxLength),
                 ],
-                onChanged: (text) {
-                  if (widget.validator != null) {
-                    state.setValue(text);
-                    state.validate();
-                  }
-                  if (widget.onChanged != null) {
-                    widget.onChanged!(text);
-                  }
-                },
+                controller: widget.controller,
                 decoration: InputDecoration(
                   labelText: widget.label,
                   border: OutlineInputBorder(

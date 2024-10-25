@@ -1,5 +1,7 @@
 import 'package:practical_testflutter/config/config.dart';
 
+import 'login/auth_check.dart';
+
 class App extends StatelessWidget {
   final ThemeData? theme;
 
@@ -9,7 +11,7 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: const Profile(),
+      home: const AuthCheck(),
       theme: theme,
     );
   }

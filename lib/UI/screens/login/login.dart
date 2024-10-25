@@ -1,7 +1,13 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:practical_testflutter/config/config.dart';
 import 'package:flutter_flip_card/flutter_flip_card.dart';
 
 import 'package:practical_testflutter/UI/screens/login/components/login_register_form.dart';
+
+final firebaseAuthProvider = Provider<FirebaseAuth>(
+      (ref) => FirebaseAuth.instance,
+);
 
 class Login extends StatelessWidget {
   const Login({super.key});

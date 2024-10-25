@@ -1,6 +1,9 @@
+import 'package:practical_testflutter/UI/screens/login/controller/auth_controller.dart';
+import 'package:practical_testflutter/UI/screens/login/controller/auth_state.dart';
 import 'package:practical_testflutter/config/config.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class LogRegForm extends StatelessWidget {
+class LogRegForm extends ConsumerStatefulWidget {
   final String title;
   final String button_label;
   final String swipe_label;
@@ -12,41 +15,59 @@ class LogRegForm extends StatelessWidget {
       required this.swipe_label});
 
   @override
+  ConsumerState<LogRegForm> createState() => _LogRegFormState();
+}
+
+class _LogRegFormState extends ConsumerState<LogRegForm> {
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+
+  @override
   Widget build(BuildContext context) {
+    ref.listen<AuthState>(authControllerProvider, ((previous, state){
+      if (state is AuthStateError){
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(state.error)));
+      }
+    }));
     return Card(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            title,
+            widget.title,
             style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
           const SizedBox(
             height: 20,
           ),
-          const CustomInputField(
+          CustomInputField(
             label: "Correo electrónico",
+            inputType: TextInputType.emailAddress,
+            controller: emailController,
           ),
           const SizedBox(
             height: 20,
           ),
-          const CustomInputField(
+          CustomInputField(
             label: "Contraseña",
             isPassword: true,
+            controller: passwordController,
           ),
           const SizedBox(
             height: 20,
           ),
           FilledButton(
-            onPressed: () => {},
+            onPressed: () => ref
+                .read(authControllerProvider.notifier)
+                .login(emailController.text, passwordController.text),
             style: ElevatedButton.styleFrom(
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10),
               ),
             ),
             child: Text(
-              button_label,
+              widget.button_label,
               style: const TextStyle(
                 color: Colors.black,
                 fontSize: 16,
@@ -59,7 +80,7 @@ class LogRegForm extends StatelessWidget {
           Container(
             alignment: Alignment.center,
             child: Text(
-              'Arrastra para $swipe_label ---->',
+              'Arrastra para ${widget.swipe_label} ---->',
               style: const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
