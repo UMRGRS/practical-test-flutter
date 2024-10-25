@@ -9,7 +9,7 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: const PokeDetail(number: "0001", pokeURL: "https://pokeapi.co/api/v2/pokemon/1/",),
+      home: const Profile(),
       theme: theme,
     );
   }
